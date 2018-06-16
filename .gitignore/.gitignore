@@ -23,9 +23,24 @@ SELECT *
 FROM purchase
 LIMIT 5;
 
+/*Column Names*/
 quiz – user_id, style, fit, shape, color
 home_try_on – user_id, number_of_pairs, address
 purchase – user_id, product_id, style, model_name, color, price
+
+/*Question 5*/
+SELECT DISTINCT q.user_id,
+   h.user_id IS NOT NULL AS 'is_home_try_on',
+   h.number_of_pairs,
+   p.user_id IS NOT NULL AS 'is_purchase'
+FROM quiz AS 'q'
+LEFT JOIN home_try_on 'h'
+   ON q.user_id = h.user_id
+LEFT JOIN purchase 'p'
+   ON p.user_id = q.user_id
+LIMIT 20;
+
+/*Addt'l Queries*/
 SELECT q.user_id, 
 	h.user_id IS NOT NULL AS 'is_home_try_on', 
 	h.number_of_pairs,
@@ -42,15 +57,3 @@ SELECT color, model_name, COUNT (user_id)
 FROM purchase
 GROUP BY 1
 ORDER BY 3 DESC;
-
-/*Question 5*/
-SELECT DISTINCT q.user_id,
-   h.user_id IS NOT NULL AS 'is_home_try_on',
-   h.number_of_pairs,
-   p.user_id IS NOT NULL AS 'is_purchase'
-FROM quiz AS 'q'
-LEFT JOIN home_try_on 'h'
-   ON q.user_id = h.user_id
-LEFT JOIN purchase 'p'
-   ON p.user_id = q.user_id
-LIMIT 20;
