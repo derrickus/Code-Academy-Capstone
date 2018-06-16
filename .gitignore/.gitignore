@@ -1,0 +1,29 @@
+/*Code-Academy-Capstone*/
+SELECT q.user_id, 
+	h.user_id IS NOT NULL AS 'is_home_try_on', 
+	h.number_of_pairs,
+	p.user_id IS NOT NULL AS 'is_purchase',
+  count(q.user_id)
+FROM quiz q
+LEFT JOIN home_try_on h
+	ON q.user_id = h.user_id
+LEFT JOIN purchase p
+	ON p.user_id = q.user_id;
+
+/*Description of models*/
+SELECT color, model_name, COUNT (user_id)
+FROM purchase
+GROUP BY 1
+ORDER BY 3 DESC;
+
+/*Question 5*/
+SELECT DISTINCT q.user_id,
+   h.user_id IS NOT NULL AS 'is_home_try_on',
+   h.number_of_pairs,
+   p.user_id IS NOT NULL AS 'is_purchase'
+FROM quiz AS 'q'
+LEFT JOIN home_try_on 'h'
+   ON q.user_id = h.user_id
+LEFT JOIN purchase 'p'
+   ON p.user_id = q.user_id
+LIMIT 20;
